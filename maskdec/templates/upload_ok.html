@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html lang="en">
+<head>
+        <title>上传图片</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+</head>
+<body>
+<form action="/" method="post" enctype="multipart/form-data">
+    <table>
+       <tbody>
+            <tr>
+                <td>图片：</td>
+            </tr>
+            <tr>
+                <td><input type="file" name="avatar" id="file0" multiple="multiple" ></td>
+            </tr>
+            <tr>
+                <td><img src="data:;base64,{{ img2 }}" id="img0" ></td>
+            </tr>
+            <tr>
+                <td>描述：</td>
+            </tr>
+              <tr>
+                <td><input type="text" name="desc"  style="margin-top:10px;"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交" class="button-new" style="margin-top:15px;"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<script>
+$("#file0").change(function(){
+		 var objUrl = getObjectURL(this.files[0]) ;//获取文件信息
+		 console.log("objUrl = "+objUrl);
+		  if (objUrl) {
+		  $("#img0").attr("src", objUrl);
+		 }
+}) ;
+function getObjectURL(file) {
+		 var url = null;
+		 if (window.createObjectURL!=undefined) {
+		  url = window.createObjectURL(file) ;
+		 } else if (window.URL!=undefined) { // mozilla(firefox)
+		  url = window.URL.createObjectURL(file) ;
+		 } else if (window.webkitURL!=undefined) { // webkit or chrome
+		  url = window.webkitURL.createObjectURL(file) ;
+		 }
+		 return url ;
+		}
+		</script>
+</body>
+</html>
